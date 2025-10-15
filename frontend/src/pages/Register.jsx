@@ -21,7 +21,7 @@ export default function Register() {
     }
     setServerError(null)
     try {
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch("https://task-management-app-dux.onrender.com/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
