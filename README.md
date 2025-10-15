@@ -6,6 +6,8 @@ It allows users to manage tasks with CRUD operations, view dashboard statistics,
 
 ---
 
+Live URL : https://task-management-app-dux.vercel.app/
+
 ## 📊 Screenshots
 
 - Dashboard showing **task statistics**
