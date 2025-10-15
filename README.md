@@ -32,7 +32,7 @@ Task Page
 
 - Persistent login with `localStorage`
 - Modern **React frontend** using **MUI**
-- Responsive UI with clean design
+- Clean design
 
 ---
 
