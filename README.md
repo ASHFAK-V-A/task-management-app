@@ -120,3 +120,6 @@ Your frontend should now be running at `http://localhost:3000`.
 - Recommended platforms: **Vercel**
 
 ---
+
+🧩 Task Management App — Created by [Ashfak V.A](https://github.com/ASHFAK-V-A/)  
+📊 Built using MERN Stack (MongoDB, Express, React, Node.js)
