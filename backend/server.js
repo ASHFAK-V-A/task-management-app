@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 5000
 const allowedOrigins = [
   "http://localhost:3000",
   "https://task-management-app-dux.onrender.com",
+  "https://task-management-app-dux.vercel.app"
 ]
 
 app.use(
