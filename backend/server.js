@@ -12,15 +12,13 @@ const PORT = process.env.PORT || 5000
 
 // ✅ Configure CORS
 const allowedOrigins = [
-  "http://localhost:3000", // your local frontend
-  "https://task-management-app-dux.onrender.com", // your deployed backend
-  "https://your-frontend-domain.vercel.app", // (optional) if you later deploy frontend
+  "http://localhost:3000",
+  "https://task-management-app-dux.onrender.com",
 ]
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like Postman)
       if (!origin) return callback(null, true)
       if (allowedOrigins.includes(origin)) {
         return callback(null, true)
