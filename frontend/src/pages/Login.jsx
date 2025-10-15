@@ -15,11 +15,14 @@ export default function Login({ onLogin }) {
   const onSubmit = async (data) => {
     setServerError(null)
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
+      const res = await fetch(
+        "https://task-management-app-dux.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      )
       const resData = await res.json()
       if (!res.ok) throw new Error(resData.message || "Login failed")
       onLogin({ token: resData.token, user: resData.user })

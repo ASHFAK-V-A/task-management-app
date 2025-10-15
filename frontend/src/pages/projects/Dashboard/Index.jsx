@@ -10,6 +10,7 @@ import {
   BarElement,
   Title,
 } from "chart.js"
+import { Skeleton, Box, Typography } from "@mui/material"
 
 ChartJS.register(
   ArcElement,
@@ -23,14 +24,18 @@ ChartJS.register(
 
 export default function Dashboard({ token }) {
   const [stats, setStats] = useState(null)
+  const [loading, setLoading] = useState(true)
   const authHeader = { Authorization: `Bearer ${token}` }
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await fetch("/api/tasks/stats", {
-          headers: authHeader,
-        })
+        const res = await fetch(
+          "https://task-management-app-dux.onrender.com/api/tasks/stats",
+          {
+            headers: authHeader,
+          }
+        )
 
         if (!res.ok) throw new Error("Failed to fetch stats")
 
@@ -38,43 +43,111 @@ export default function Dashboard({ token }) {
         setStats(data)
       } catch (err) {
         console.error(err)
+      } finally {
+        setLoading(false)
       }
     }
 
     fetchStats()
   }, [])
 
-  if (!stats) return <p>Loading...</p>
+  // ⏳ Skeleton Loading View
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          maxWidth: 800,
+          margin: "30px auto",
+          padding: 3,
+          borderRadius: 3,
+          bgcolor: "#f5f5f5",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        }}
+      >
+        <Typography
+          variant="h5"
+          align="center"
+          sx={{ mb: 3, color: "black", fontWeight: 600 }}
+        >
+          Dashboard
+        </Typography>
 
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-around",
+            gap: 4,
+          }}
+        >
+          {/* Skeleton 1 */}
+          <Box sx={{ width: 350, textAlign: "center" }}>
+            <Skeleton
+              variant="text"
+              width="70%"
+              height={30}
+              sx={{ mx: "auto" }}
+            />
+            <Skeleton
+              variant="circular"
+              width={250}
+              height={250}
+              sx={{ mx: "auto", mt: 2 }}
+            />
+          </Box>
+
+          {/* Skeleton 2 */}
+          <Box sx={{ width: 350, textAlign: "center" }}>
+            <Skeleton
+              variant="text"
+              width="70%"
+              height={30}
+              sx={{ mx: "auto" }}
+            />
+            <Skeleton
+              variant="rectangular"
+              width={300}
+              height={200}
+              sx={{ mx: "auto", mt: 2 }}
+            />
+          </Box>
+        </Box>
+      </Box>
+    )
+  }
+
+  // 🧮 Calculate total
   const totalTasks =
     stats.statusCounts.pending +
     stats.statusCounts["in-progress"] +
     stats.statusCounts.completed
 
-  // If no tasks, show message
+  // 📊 If no data found
   if (totalTasks === 0) {
     return (
-      <div
-        style={{
-          maxWidth: "800px",
+      <Box
+        sx={{
+          maxWidth: 800,
           margin: "30px auto",
-          padding: "20px",
-          borderRadius: "16px",
+          padding: 3,
+          borderRadius: 3,
           textAlign: "center",
-          background: "#f5f5f5",
+          bgcolor: "#f5f5f5",
           color: "#333",
           boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
         }}
       >
-        <h3>Dashboard</h3>
-        <p style={{ marginTop: 30 }}>
+        <Typography variant="h5" fontWeight={600}>
+          Dashboard
+        </Typography>
+        <Typography sx={{ mt: 3 }}>
           Result not found. Create tasks to see statistics.
-        </p>
-      </div>
+        </Typography>
+      </Box>
     )
   }
 
-  // Pie chart data
+  // 🍰 Pie chart data
   const pieData = {
     labels: ["Pending", "In Progress", "Completed"],
     datasets: [
@@ -89,7 +162,7 @@ export default function Dashboard({ token }) {
     ],
   }
 
-  // Bar chart data
+  // 📊 Bar chart data
   const barData = {
     labels: ["Due Today", "Due This Week", "Total Tasks"],
     datasets: [
@@ -102,62 +175,44 @@ export default function Dashboard({ token }) {
   }
 
   return (
-    <div
-      style={{
-        maxWidth: "800px",
+    <Box
+      sx={{
+        maxWidth: 800,
         margin: "30px auto",
-        padding: "20px",
-        borderRadius: "16px",
-        color: "#fff",
+        padding: 3,
+        borderRadius: 3,
         boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
       }}
     >
-      <h3
-        style={{
-          textAlign: "center",
-          marginBottom: "20px",
-          fontSize: "1.3rem",
-          fontWeight: "600",
-          color: "black",
-        }}
+      <Typography
+        variant="h5"
+        align="center"
+        sx={{ mb: 3, fontWeight: 600, color: "black" }}
       >
         Dashboard
-      </h3>
+      </Typography>
 
-      {/* Charts side by side */}
-      <div
-        style={{
+      <Box
+        sx={{
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-around",
-          gap: "30px",
+          gap: 4,
         }}
       >
         {/* Pie Chart */}
-        <div style={{ width: "350px" }}>
-          <h4
-            style={{
-              textAlign: "center",
-              marginBottom: "10px",
-              color: "black",
-            }}
-          >
+        <Box sx={{ width: 350, textAlign: "center" }}>
+          <Typography sx={{ mb: 1, color: "black", fontWeight: 500 }}>
             Tasks by Status
-          </h4>
+          </Typography>
           <Pie data={pieData} />
-        </div>
+        </Box>
 
         {/* Bar Chart */}
-        <div style={{ width: "350px" }}>
-          <h4
-            style={{
-              textAlign: "center",
-              marginBottom: "10px",
-              color: "black",
-            }}
-          >
+        <Box sx={{ width: 350, textAlign: "center" }}>
+          <Typography sx={{ mb: 1, color: "black", fontWeight: 500 }}>
             Tasks Due Overview
-          </h4>
+          </Typography>
           <Bar
             data={barData}
             options={{
@@ -165,8 +220,8 @@ export default function Dashboard({ token }) {
               plugins: { legend: { display: false } },
             }}
           />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   )
 }

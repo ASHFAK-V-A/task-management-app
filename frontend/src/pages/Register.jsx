@@ -21,15 +21,18 @@ export default function Register() {
     }
     setServerError(null)
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: data.username,
-          email: data.email,
-          password: data.password,
-        }),
-      })
+      const res = await fetch(
+        "https://task-management-app-dux.onrender.com/api/auth/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: data.username,
+            email: data.email,
+            password: data.password,
+          }),
+        }
+      )
       const resData = await res.json()
       if (!res.ok) throw new Error(resData.message || "Registration failed")
       nav("/login") // redirect after successful registration

@@ -28,9 +28,12 @@ export default function Tasks({ token }) {
         due_date: watch("due_date") || "",
       }).toString()
 
-      const res = await fetch(`/api/tasks?${query}`, {
-        headers: authHeader,
-      })
+      const res = await fetch(
+        `https://task-management-app-dux.onrender.com/api/tasks?${query}`,
+        {
+          headers: authHeader,
+        }
+      )
       const data = await res.json()
       setTasks(data || [])
     } catch (err) {
