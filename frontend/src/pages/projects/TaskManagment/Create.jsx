@@ -72,7 +72,9 @@ export default function Create({ id, setId, token, setRefresh }) {
     try {
       // Determine method and URL
       const method = id ? "PUT" : "POST"
-      const url = id ? `/api/tasks/${id}` : "/api/tasks"
+      const url = id
+        ? `https://task-management-app-dux.onrender.com/api/tasks/${id}`
+        : "https://task-management-app-dux.onrender.com/api/tasks"
 
       const res = await fetch(url, {
         method,
