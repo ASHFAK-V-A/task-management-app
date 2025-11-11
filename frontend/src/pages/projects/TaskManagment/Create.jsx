@@ -42,7 +42,7 @@ export default function Create({ id, setId, token, setRefresh }) {
   }
   const fetchDetails = async (id) => {
     try {
-      const res = await fetch(`/api/tasks/${id}`, { headers: authHeader })
+      const res = await fetch(`https://task-management-app-dux.onrender.com/api/tasks/${id}`, { headers: authHeader })
       const data = await res.json()
       if (data) {
         reset({
