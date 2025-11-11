@@ -29,7 +29,7 @@ export default function Delete({
   const DeleteHandler = async () => {
     setLoading(true)
     try {
-      const res = await fetch(`/api/tasks/${DeleteID}`, {
+      const res = await fetch(`https://task-management-app-dux.onrender.com/api/tasks/${DeleteID}`, {
         method: "DELETE",
         headers: { ...authHeader },
       })
