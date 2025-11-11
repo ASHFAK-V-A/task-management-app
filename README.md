@@ -6,6 +6,8 @@ It allows users to manage tasks with CRUD operations, view dashboard statistics,
 
 ---
 
+Live URL : https://task-management-app-dux.vercel.app/
+
 ## 📊 Screenshots
 
 - Dashboard showing **task statistics**
@@ -30,7 +32,7 @@ Task Page
 
 - Persistent login with `localStorage`
 - Modern **React frontend** using **MUI**
-- Responsive UI with clean design
+- Clean design
 
 ---
 
@@ -118,3 +120,6 @@ Your frontend should now be running at `http://localhost:3000`.
 - Recommended platforms: **Vercel**
 
 ---
+
+🧩 Task Management App — Created by [Ashfak V.A](https://github.com/ASHFAK-V-A/)  
+📊 Built using MERN Stack (MongoDB, Express, React, Node.js)
