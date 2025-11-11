@@ -120,9 +120,8 @@ export default function Create({ id, setId, token, setRefresh }) {
       </Button>
 
       <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
-        {fetchLoading&& 'loading...'}
-        
-        <Box sx={{ width: { xs: 400, sm: 500 }, p: 3 }}>
+        {fetchLoading ?  'loading...':(
+  <Box sx={{ width: { xs: 400, sm: 500 }, p: 3 }}>
           <Typography variant="h6" mb={2}>
             {id ? "Edit Task" : "Create Task"}
           </Typography>
@@ -215,6 +214,10 @@ export default function Create({ id, setId, token, setRefresh }) {
             </Stack>
           </form>
         </Box>
+      
+        )}
+        
+       
       </Drawer>
     </>
   )
