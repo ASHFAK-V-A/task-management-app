@@ -18,7 +18,7 @@ export default function Create({ id, setId, token, setRefresh }) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const authHeader = { Authorization: `Bearer ${token}` }
-
+  const [fetchLoading, setFetchLoading] = useState(false)
   useEffect(() => {
     if (id) {
       fetchDetails(id)
@@ -41,6 +41,7 @@ export default function Create({ id, setId, token, setRefresh }) {
     setId(null)
   }
   const fetchDetails = async (id) => {
+    setFetchLoading(true)
     try {
       const res = await fetch(`https://task-management-app-dux.onrender.com/api/tasks/${id}`, { headers: authHeader })
       const data = await res.json()
@@ -56,6 +57,7 @@ export default function Create({ id, setId, token, setRefresh }) {
     } catch (err) {
       console.error(err)
     }
+    setFetchLoading(false)
   }
 
   const onSubmit = async (data) => {
@@ -118,6 +120,8 @@ export default function Create({ id, setId, token, setRefresh }) {
       </Button>
 
       <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+        {fetchLoading&& 'loading...'}
+        
         <Box sx={{ width: { xs: 400, sm: 500 }, p: 3 }}>
           <Typography variant="h6" mb={2}>
             {id ? "Edit Task" : "Create Task"}
